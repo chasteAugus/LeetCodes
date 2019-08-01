@@ -1,0 +1,33 @@
+//155.最小栈
+class MinStack {
+public:
+    stack<int> Stack;
+    stack<int> min;
+
+    /** initialize your data structure here. */
+    MinStack() {
+
+    }
+
+    void push(int x) {
+        Stack.push(x);
+        if(min.empty() || min.top()>=x){
+            min.push(x);
+        }
+    }
+
+    void pop() {
+        if(Stack.top()==min.top()){
+            min.pop();
+        }
+        Stack.pop();
+    }
+
+    int top() {
+        return Stack.top();
+    }
+
+    int getMin() {
+        return min.top();
+    }
+};
