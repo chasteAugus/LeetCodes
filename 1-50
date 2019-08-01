@@ -1,0 +1,123 @@
+//1
+class Solution {
+public:
+    vector<int> twoSum(vector<int> &nums, int target) {//寰呬紭鍖?        vector<int> index;
+        int flag = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (nums[i] + nums[j] == target && i != j) {
+                    index.push_back(i);
+                    index.push_back(j);
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if (flag == 1)
+                break;
+        }
+
+        return index;
+    }
+};
+
+//7
+class Solution {
+public:
+    int reverse(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > INT_MAX/10 || (rev == INT_MAX / 10 && pop > 7)) return 0;
+            if (rev < INT_MIN/10 || (rev == INT_MIN / 10 && pop < -8)) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+};
+
+//9
+class Solution {
+public:
+    bool isPalindrome(int x) {//寰呬紭鍖?        if(x<0 || (x%10==0 && x!=0)){
+            return false;
+        }else{
+            string string1=to_string(x);
+            string string2=string1;
+            reverse(string1.begin(), string1.end());
+            if (string1==string2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+};
+
+//13
+class Solution {
+public:
+    int romanToInt(string s) {
+        vector<int > vector;
+        int sum=0;
+
+        for (char i : s) {
+            if(i=='I')
+                vector.push_back(1);
+            else if(i=='V')
+                vector.push_back(5);
+            else if(i=='X')
+                vector.push_back(10);
+            else if(i=='L')
+                vector.push_back(50);
+            else if(i=='C')
+                vector.push_back(100);
+            else if(i=='D')
+                vector.push_back(500);
+            else
+                vector.push_back(1000);
+        }
+
+        int j=0;
+
+        while( j < vector.size()) {
+            if(j+1<vector.size() && vector[j]<vector[j+1]){
+                sum+=vector[j+1]-vector[j];
+                j+=2;
+            }else{
+                sum+=vector[j];
+                j++;
+            }
+        }
+
+        return sum;
+    }
+};
+
+//19.删除链表的倒数第N个节点
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        if(!head || !(head -> next))   return nullptr;
+        ListNode* p=head;
+        int i=1;
+        while(p->next){
+            p=p->next;
+            i++;
+        }
+        if(i==n){
+            head->val=head->next->val;
+            head->next=head->next->next;
+            return head;
+        }
+        int j=i-n-1;
+        p=head;
+        while (j--){
+            p=p->next;
+        }
+        p->next=p->next->next;
+        return head;
+    }
+};
