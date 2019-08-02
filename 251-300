@@ -1,0 +1,37 @@
+//283.移动零
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+    /*       int fastP=0;//快指针始终去找下一个非0元素
+        int lowP=0;//慢指针始终指向第一个0元素
+
+        while (true){
+
+            while(fastP<nums.size() && nums[fastP]==0){
+                fastP++;
+            }
+
+            while (lowP<nums.size() && nums[lowP]){
+                lowP++;
+            }
+
+            if(lowP==nums.size() || fastP==nums.size()){
+                break;
+            }
+            
+            if(lowP<fastP)
+                swap(nums[lowP],nums[fastP]);
+        }                                                
+   */
+
+        for (int lastNonZeroFoundAt = 0, cur = 0; cur < nums.size(); cur++) {//更高效
+            if (nums[cur] != 0) {
+                swap(nums[lastNonZeroFoundAt++], nums[cur]);
+            }
+        }
+        
+        //1.慢指针（lastnonzerofoundat）之前的所有元素都是非零的。
+        //2.当前指针和慢速指针之间的所有元素都是零。
+
+    }
+};
