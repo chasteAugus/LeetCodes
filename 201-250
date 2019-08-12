@@ -44,6 +44,43 @@ public:
     }
 };
 
+//206.反转链表
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+//lower one
+        /*if(head==NULL || head->next==NULL)
+            return head;
+        ListNode *pre, *cur;
+        pre=head;
+        cur=head->next;
+        head->next=NULL;
+
+        while (cur->next!=NULL){
+            ListNode *t=pre;
+            pre=cur;
+            cur=cur->next;
+            pre->next=t;
+        }
+
+        cur->next=pre;
+
+        return cur;*/
+
+//better one
+        ListNode *pre = NULL;
+        ListNode *cur = head;
+
+        while (cur != NULL) {
+            ListNode *nextTemp = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = nextTemp;
+        }
+        return pre;
+    }
+};
+
 //237
 class Solution {
 public:
