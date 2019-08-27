@@ -90,6 +90,45 @@ public:
     }
 };
 
+//234.回文链表
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {//快慢指针法
+        if(head==NULL || head->next==NULL)
+            return true;
+
+        ListNode *fast=head;
+        ListNode *slow=head;
+        ListNode *pre;
+        ListNode *s=NULL;
+        ListNode *temp;
+
+        while (fast!=NULL && fast->next!=NULL){//边找中点边反转前半段链表
+            pre = slow;
+            slow=slow->next;
+            fast=fast->next->next;
+            pre->next=s;
+            s=pre;
+        }
+
+        temp=slow;
+
+        if(fast!=NULL)//考虑链表长度的奇偶性
+            temp=temp->next;
+
+        slow=pre;
+
+        while(temp!=NULL){//比较判断回文
+            if(temp->val!=slow->val) return false;
+            else{
+                temp=temp->next;
+                slow=slow->next;
+            }
+        }
+
+        return true;
+    }
+};
 
 //242
 class Solution {
