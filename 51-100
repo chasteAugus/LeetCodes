@@ -21,6 +21,44 @@ public:
     }
 };
 
+//83.删除排序链表中的重复元素
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+    
+  //初始版本      
+        if(!head || !head->next)
+            return head;
+        ListNode *first=head;
+        ListNode *second=head->next;
+
+        while (second){
+            if(first->val==second->val){
+                ListNode *t=second;
+                first->next=second->next;
+                second=second->next;
+                t->next=NULL;
+            } else{
+                first=first->next;
+                second=second->next;
+            }
+        }
+//更改版本
+        if(!head) return head;
+        ListNode *temp=head;
+        
+        while (temp->next){
+            if(temp->val==temp->next->val){
+                temp->next=temp->next->next;
+            } else{
+                temp=temp->next;
+            }
+        }
+        
+        return head;
+    }
+};
+
 //88
 class Solution {
 public:
