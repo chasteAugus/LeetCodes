@@ -207,6 +207,32 @@ public:
     }
 };
 
+//24. 两两交换链表中的节点
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+        ListNode *first=head, *second=head->next, *next, *pre=new ListNode(0);
+        head=second;
+        
+        while (first && second){
+            pre->next=second;
+            pre=first;
+            next=second->next;
+            second->next=first;
+            first->next=next;
+            first=next;
+            if(first)
+                second=first->next;
+            else
+                break;
+        }
+
+        return head;
+    }
+};
+
 //26.
 class Solution {
 public:
