@@ -1,3 +1,23 @@
+//53.
+class Solution {
+public:
+    int maxSubArray(vector<int> &nums) {
+        int sum=0;
+        int ans=INT_MIN;
+
+        for (int num : nums){
+            if(sum>0){
+                sum+=num;
+            } else{
+                sum=num;
+            }
+            ans=ans>sum?ans:sum;
+        }
+
+        return ans;
+    }
+};
+
 //66
 class Solution {
 public:
@@ -21,7 +41,64 @@ public:
     }
 };
 
-//83.删除排序链表中的重复元素
+//70.
+class Solution {
+public:
+    int climbStairs(int n) {
+        int past, now;
+        past=0;
+        now=1;
+
+        for (int i = 0; i < n; ++i) {
+            now+=past;
+            past=now-past;
+        }
+
+        return now;
+    }
+};
+
+//82. 删除排序链表中的重复元素 II
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+
+        ListNode *pre, *cur=head, *next=head->next;
+        ListNode header(0);
+        header.next=head;
+        int flag=0;
+        pre=&header;
+
+        while (!next){
+            if(cur->val==next->val){//删除与当前节点相同的下一节点
+                cur->next=next->next;
+                next=next->next;
+                flag=1;//标记置1
+            } else{
+                if(flag==0){
+                    pre=cur;
+                    cur=cur->next;//两指针后移
+                    next=next->next;
+                } else{
+                    pre->next=next;//删除有过重复的节点
+                    flag=0;//重置标记
+                    cur=next;//两指针后移
+                    next=next->next;
+                }
+            }
+        }
+
+        if(flag==1){
+            pre->next=next;//删除最后一个有过重复的节点
+        }
+
+        return header.next;
+    }
+};
+
+//83.删除排序链表中的重复元素1
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
