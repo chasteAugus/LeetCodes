@@ -116,6 +116,26 @@ public:
     }
 };
 
+//217.
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        map <int , int > hashmap;
+        //unordered_set <int> hashset;
+        for(auto i : nums){
+            //if(hashset.count(i) > 0)
+            if(hashmap.count(i)){
+                return true;
+            }
+            else{
+                hashmap.insert(pair<int , int >(i,1));
+                // hashset.insert(i);
+            }
+        }
+        return false;
+    }
+};
+
 //234.回文链表
 class Solution {
 public:
@@ -153,6 +173,15 @@ public:
         }
 
         return true;
+    }
+};
+
+//237.
+class Solution {
+public:
+    void deleteNode(ListNode* node) {
+        node->val=node->next->val;
+        node->next=node->next->next;
     }
 };
 
