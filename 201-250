@@ -1,3 +1,29 @@
+//203. 移除链表元素
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        ListNode *pre, *cur=head, *s;
+        ListNode header(0);
+        header.next=head;
+        pre=&header;
+
+        while (cur){
+            if(cur->val==val){
+                pre->next=cur->next;
+                s=cur;
+                cur=cur->next;
+                delete s;
+            } else{
+                pre=cur;
+                cur=cur->next;
+            }
+            //cur=cur->next;
+        }
+
+        return header.next;
+    }
+};
+
 //204.计数质数
 class Solution {
 public:
