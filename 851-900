@@ -1,0 +1,18 @@
+//876.链表的中间结点
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        if(!head->next){
+            return head;
+        }
+
+        ListNode *fast=head, *slow=head;//设定快慢指针取中点
+
+        while ( fast && fast->next ){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+
+        return slow;
+    }
+};
