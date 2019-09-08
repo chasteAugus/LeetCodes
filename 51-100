@@ -18,6 +18,37 @@ public:
     }
 };
 
+//61.旋转链表
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(!head || !head->next){
+            return head;
+        }
+
+        ListNode *tail=head, *pre, *t;
+        int len=1;
+
+        while (tail->next){//找到尾节点
+            tail=tail->next;
+            len++;
+        }
+
+        tail->next=head;//首尾相连
+        k=len-k%len;
+        t=head;
+
+        while (k--){//断开环路形成结果
+            pre=t;
+            t=t->next;
+        }
+
+        pre->next=NULL;
+        head=t;
+        return head;
+    }
+};
+
 //66
 class Solution {
 public:
