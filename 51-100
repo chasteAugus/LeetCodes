@@ -167,6 +167,34 @@ public:
     }
 };
 
+//86. 分隔链表
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        if(!head || !head->next) return head;
+
+        ListNode *header1=new ListNode(-1);
+        ListNode *header2=new ListNode(-1);
+        ListNode *p=head, *t1=header1, *t2=header2;
+
+        while (p){
+            if(p->val<x){
+                t1->next=p;
+                t1=t1->next;
+            } else{
+                t2->next=p;
+                t2=t2->next;
+            }
+            p=p->next;
+        }
+
+        t1->next=header2->next;
+        t2->next=NULL;//少了这一步会形成环
+        head=header1->next;
+        return head;
+    }
+};
+
 //88
 class Solution {
 public:
