@@ -212,3 +212,46 @@ public:
         }
     }
 };
+
+//92.反转链表 II
+class Solution {//还可以用递归法。。
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        if(!head || !head->next || m==n)
+            return head;
+
+        ListNode *pre=nullptr, *cur = nullptr, *nxt = nullptr, *pre2=nullptr, *p=head;
+        int len=1;
+
+        while (p){//p最后指向第m元素,pre2指向第m-1个元素
+            if(len==m){
+                cur=p;
+                nxt=p->next;
+                break;
+            }
+            pre2=p;
+            p=p->next;
+            len++;
+        }
+
+        while (len <=n){//cur最后指向第n+1个，pre指向第n个元素
+            cur->next=pre;
+            pre=cur;
+            cur=nxt;
+
+            if(nxt!= nullptr){
+                nxt=nxt->next;
+                len++;
+            }else
+                break;
+        }
+
+        if(m==1)
+            head=pre;
+        else
+            pre2->next=pre;
+        p->next=cur;
+
+        return head;
+    }
+};
