@@ -33,3 +33,32 @@ public:
         return false;
     }
 };
+
+//142. 环形链表 II
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {//floyd算法
+        if(!head || !head->next){
+            return NULL;
+        }
+
+        ListNode *fast=head, *slow=head;
+
+        while (true){//找到相遇点
+            if(!fast || !fast->next) return NULL;
+
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow) break;
+        }
+
+        fast=head;
+
+        while (slow!=fast){//找到入口点
+            slow=slow->next;
+            fast=fast->next;
+        }
+
+        return fast;
+    }
+};
