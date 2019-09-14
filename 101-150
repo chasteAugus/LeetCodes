@@ -62,3 +62,47 @@ public:
         return fast;
     }
 };
+
+143. 重排链表
+class Solution {//用函数会更快。。。
+public:
+    void reorderList(ListNode* head) {
+        if(head==nullptr||head->next==nullptr){
+            return;
+        }
+        ListNode* mid=findMid(head);
+        ListNode* l2=mid->next;
+        mid->next=nullptr;
+        l2=reverse(l2);
+        ListNode* l1=head;
+        while(l1!=nullptr&&l2!=nullptr){//leetcode无法用'!'号来判断
+            ListNode* next=l1->next;
+            l1->next=l2;
+            l2=l2->next;
+            l1->next->next=next;
+            l1=next;
+        }
+    }
+private:
+    ListNode* findMid(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+        while(fast!=nullptr&&fast->next!=nullptr){
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        return slow;
+    }
+    ListNode* reverse(ListNode* head){
+        ListNode* pre=nullptr;
+        ListNode* next=nullptr;
+        ListNode* cur=head;
+        while(cur!=nullptr){
+            next=cur->next;
+            cur->next=pre;
+            pre=cur;
+            cur=next;
+        }
+        return pre;
+    }
+};
