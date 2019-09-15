@@ -106,3 +106,44 @@ private:
         return pre;
     }
 };
+
+//147. 对链表进行插入排序
+class Solution {
+public:
+    ListNode *insertionSortList(ListNode *head) {//速度较慢，用vector会更快
+        if (!head || !head->next)
+            return head;
+
+        ListNode *cur, *pre, *t;
+        ListNode *hnode = new ListNode(0);//创建头节点
+        hnode->next = head;
+        cur = head->next;
+        head->next = nullptr;
+
+        while (cur != nullptr) {//排序
+            pre = hnode;
+            head = hnode->next;
+            t = cur->next;
+            cur->next = nullptr;//防止出现链表环
+
+            while (head != nullptr) {
+                if (cur->val < head->val) {
+                    cur->next = head;
+                    pre->next = cur;
+                    break;
+                } else {
+                    head = head->next;
+                    pre = pre->next;
+                }
+            }
+
+            if (head == nullptr) {//防止该数据本就有序的情况出现
+                pre->next = cur;
+            }
+
+            cur = t;//更新cur的值
+        }
+
+        return hnode->next;
+    }
+};
