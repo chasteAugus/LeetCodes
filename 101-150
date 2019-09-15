@@ -108,6 +108,7 @@ private:
 };
 
 //147. 对链表进行插入排序
+法一：一般想法
 class Solution {
 public:
     ListNode *insertionSortList(ListNode *head) {//速度较慢，用vector会更快
@@ -147,3 +148,28 @@ public:
         return hnode->next;
     }
 };
+法二：加个尾节点、提高效率
+class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        ListNode dummy = new ListNode(Integer.MIN_VALUE);//创建头节点
+        ListNode pre = dummy;
+        ListNode tail = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            if (tail.val < cur.val) {//如大于尾节点即有序，直接连接
+                tail.next = cur;
+                tail = cur;
+                cur = cur.next;
+            } else {//如小于尾节点则再从头寻找位置插入
+                ListNode tmp = cur.next;
+                tail.next = tmp;//使尾节点指向cur的下一个节点亦可防止循环的出现
+                while (pre.next != null && pre.next.val < cur.val) pre = pre.next;
+                cur.next = pre.next;
+                pre.next = cur;
+                pre = dummy;
+                cur = tmp;
+            }
+        }
+        return dummy.next;
+    }
+}
