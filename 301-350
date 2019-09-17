@@ -1,0 +1,16 @@
+328. 奇偶链表
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if (!head || !head->next) return head;
+        ListNode *odd = head, *even = head->next, *evenHead = even;//odd指向奇数串的尾巴，head指向奇数串的头部
+        while (even != nullptr && even->next != nullptr) {//evenHead指向偶数串的头部，even指向偶数串的尾巴
+            odd->next = even->next;
+            odd = odd->next;
+            even->next = odd->next;
+            even = even->next;
+        }
+        odd->next = evenHead;//奇数串和偶数串相连
+        return head;
+    }
+};
